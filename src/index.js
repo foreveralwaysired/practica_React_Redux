@@ -5,13 +5,14 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { EvolucionesPage } from './pages/evolucionesPage';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
-    <App />
+    <EvolucionesPage />
   </Provider>
 );
 
