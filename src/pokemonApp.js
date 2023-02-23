@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from './sotre/store'
+import { AppRoutes } from './routes/appRoutes';
+import { store } from './store/store';
 
-const PokemonApp = () => {
+export const PokemonApp = () => {
 
     return (
         <Provider store={store}>

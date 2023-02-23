@@ -3,5 +3,5 @@ import { configuracionTemaSlice } from "./configuracionTemaSlice/configuracionTe
 
 export const sliceRoot = {
     configuracionTema: configuracionTemaSlice.reducer,
-    auth: authSlice,
+    auth: authSlice.reducer,
 }

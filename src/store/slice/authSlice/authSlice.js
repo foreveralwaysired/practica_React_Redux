@@ -1,32 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    usuarioData: null,
-    perfiles: null,
-    configuracionTemplate: null,
-}
+    authUser: null,
+    errorMessages: null,
+    profileSelected: null,
+    configTemplate: null,
+    status: "authenticated",
+};
 
 export const authSlice = createSlice({
     name: "auth", initialState,
     reducers: {
-        onChangeUsuarioData: (state, { payload }) => {
-            state.allConfig = payload;
+        onChecking: state => {
+            state.status = "checking";
+            state.authUser = null;
+            state.errorMessages = null;
         },
-        onChangePerfiles: (state, { payload }) => {
-            state.componentTheme = payload;
+        onLogin: (state, { payload }) => {
+            state.status = "authenticated";
+            state.authUser = payload;
+            state.errorMessages = null;
         },
-        onChangeConfiguracionTemplate: (state, { payload }) => {
-            state.ripple = payload;
+        onLogout: (state, { payload }) => {
+            state.status = "not-authenticated";
+            state.user = {};
+            state.errorMessages = payload;
         },
-        onResetAuthSlice: () => {
-            return initialState;
-        }
-    }
+        clearErrorMessages: state => {
+            state.errorMessages = [];
+        },
+        setProfileSelected: (state, { payload }) => {
+            state.profileSelected = payload;
+        },
+        setConfigTemplate: (state, { payload }) => {
+            state.configTemplate = payload;
+        },
+        clearConfigTemplate: state => {
+            state.configTemplate = null;
+        },
+        clearValues: state => {
+            state.authUser = null;
+            state.errorMessages = null;
+            state.profileSelected = null;
+            state.configTemplate = null;
+            state.status = "not-authenticated";
+        },
+    },
 })
 
-export const {
-    onChangeUsuarioData,
-    onChangePerfiles,
-    onChangeConfiguracionTemplate,
-    onResetAuthSlice,
-} = authSlice.actions;
+export const { onChecking, onLogin, onLogout, clearErrorMessages, setProfileSelected, setConfigTemplate, clearValues, clearConfigTemplate } = authSlice.actions;

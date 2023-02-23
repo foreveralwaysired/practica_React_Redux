@@ -3,11 +3,12 @@ import { classNames } from 'primereact/utils';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import AppTopbar from '../../AppTopbar';
+import AppMenu from '../../AppMenu';
 import AppFooter from '../../AppFooter';
 import AppConfig from '../../AppConfig';
-import AppRightMenu from '../../AppRightMenu';
+import AppRightMenu from '../../AppRightMenu'
 import AppBreadcrumb from '../../AppBreadcrumb';
-import AppMenu from '../../AppMenu';
+
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
@@ -16,7 +17,8 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 
-export const PokemonLayout = (props) => {
+
+export const AdminLayout = (props) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
     const [configActive, setConfigActive] = useState(false);
     const [menuMode, setMenuMode] = useState('sidebar');
@@ -466,7 +468,6 @@ export const PokemonLayout = (props) => {
                 <AppBreadcrumb routes={routes} onMenuButtonClick={onMenuButtonClick} menuMode={menuMode} onRightMenuButtonClick={onRightMenuButtonClick} onInputClick={onInputClick} searchActive={searchActive} breadcrumbClick={breadcrumbClick} />
 
                 <div className="layout-main-content">
-
                 </div>
 
                 <AppFooter colorScheme={props.colorScheme} />
