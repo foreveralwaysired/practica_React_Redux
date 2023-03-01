@@ -4,11 +4,11 @@ export const menuRoutes = (profileSelected, navigate) => {
     //     if (route.childRoutes.length > 0) {
     //         return {
     //             label: route.nomFormulario,
-    //             icon: <FontAwesomeIcon className="mr-2" icon={route?.iconOn} />,
+    //             icon: route?.iconOn />,
     //             items: route.childRoutes.map((childRoute) => {
     //                 return {
     //                     label: childRoute.label,
-    //                     icon: <FontAwesomeIcon className="mr-2" icon={childRoute?.iconOn} />,
+    //                     icon: childRoute?.iconOn />,
     //                     command: () => {
     //                         navigate(childRoute?.endpoint)
     //                     },
@@ -18,7 +18,7 @@ export const menuRoutes = (profileSelected, navigate) => {
     //     } else {
     //         return {
     //             label: route.nomFormulario,
-    //             icon: <FontAwesomeIcon className="mr-2" icon={route?.iconOn} />,
+    //             icon: route?.iconOn />,
     //             command: () => {
     //                 navigate(route?.endpoint)
     //             },
