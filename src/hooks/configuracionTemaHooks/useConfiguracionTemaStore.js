@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import App from './App';
-import { Login } from './pages/Login';
-import { Error } from './pages/Error';
-import { NotFound } from './pages/NotFound';
-import { Access } from './pages/Access';
+import { useDispatch, useSelector } from "react-redux";
+import { onChangeComponentTheme, onChangeMenuMode, onChangeRipple, onChangeScheme, onChangeThemeColor } from "../../store/slice/configuracionTemaSlice/configuracionTemaSlice";
 
-const AppWrapper = (props) => {
-    const [colorScheme, setColorScheme] = useState('dark');
-    const [theme, setTheme] = useState('blue');
-    const [componentTheme, setComponentTheme] = useState('blue');
-
-    let location = useLocation();
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location]);
+export const useConfiguracionTemaStore = () => {
+    const dispatch = useDispatch();
+    const { allConfig, menuMode, themeColor, componentTheme, layoutMode, ripple, colorScheme, } = useSelector((state) => state.configuracionTema);
 
     const onColorSchemeChange = (scheme) => {
         changeStyleSheetUrl('layout-css', 'layout-' + scheme + '.css', 1);
         changeStyleSheetUrl('theme-css', 'theme-' + scheme + '.css', 1);
-        setColorScheme(scheme);
+        dispatch(onChangeScheme(scheme));
     };
 
     const changeStyleSheetUrl = (id, value, from) => {
@@ -42,18 +30,17 @@ const AppWrapper = (props) => {
 
     const onMenuThemeChange = (theme) => {
         const layoutLink = document.getElementById('layout-css');
-        const href = 'assets/layout/css/' + theme + '/layout-' + colorScheme + '.css';
-
+        const href = '../assets/layout/css/' + theme + '/layout-' + colorScheme + '.css';
         replaceLink(layoutLink, href);
-        setTheme(theme);
+        dispatch(onChangeThemeColor(theme));
     };
 
     const onComponentThemeChange = (theme) => {
         const themeLink = document.getElementById('theme-css');
-        const href = 'assets/theme/' + theme + '/theme-' + colorScheme + '.css';
+        const href = '../assets/theme/' + theme + '/theme-' + colorScheme + '.css';
 
         replaceLink(themeLink, href);
-        setComponentTheme(theme);
+        dispatch(onChangeComponentTheme(theme));
     };
 
     const replaceLink = (linkElement, href, callback) => {
@@ -77,15 +64,32 @@ const AppWrapper = (props) => {
         });
     };
 
-    return (
-        <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/error" element={<Error />} />
-            <Route path="/notfound" element={<NotFound />} />
-            <Route path="/access" element={<Access />} />
-            <Route path="*" element={<App colorScheme={colorScheme} onColorSchemeChange={onColorSchemeChange} componentTheme={componentTheme} onComponentThemeChange={onComponentThemeChange} theme={theme} onMenuThemeChange={onMenuThemeChange} />} />
-        </Routes>
-    );
-};
+    const setMenuMode = (mode) => {
+        dispatch(onChangeMenuMode(mode));
+    };
 
-export default AppWrapper;
+    const setRipple = (value) => {
+        dispatch(onChangeRipple(value));
+    };
+
+
+
+    return {
+        /**Propiedades **/
+        allConfig,
+        menuMode,
+        themeColor,
+        componentTheme,
+        layoutMode,
+        ripple,
+        colorScheme,
+        /** Métodos **/
+        onColorSchemeChange,
+        onMenuThemeChange,
+        onComponentThemeChange,
+        setRipple,
+        setMenuMode,
+
+    };
+
+};

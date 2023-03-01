@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import AppMenu from './AppMenu';
 import { classNames } from 'primereact/utils';
+import AppMenu from './appMenu';
 
 const AppTopbar = (props) => {
     const onTopbarSubItemClick = (event) => {

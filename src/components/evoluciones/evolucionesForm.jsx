@@ -2,7 +2,6 @@ import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown';
 import React, { useState } from 'react'
 import { useAuthStore } from '../../hooks/authHooks/useAuthStore';
-import { NuevaEvolucionForm } from './components/nuevaEvolucionForm'
 
 export const EvolucionesForm = (props) => {
 
@@ -28,7 +27,7 @@ export const EvolucionesForm = (props) => {
                     <Button
                         className='mt-4'
                         label='test'
-                        onClick={() => starChangeValue([...props.lstDropdown, { name: "test", id: 2 }])}
+                        onClick={() => starChangeValue([...props.lstDropdown, { name: "Pokemon", id: 2 }])}
                     />
                 </div>
             </div>

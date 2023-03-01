@@ -9,7 +9,7 @@ export const EvolucionesPage = () => {
 
     const [value, setValue] = useState(
         [{
-            name: "test", id: 1
+            name: "Test", id: 1
         }]
     );
 

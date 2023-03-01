@@ -12,7 +12,7 @@ const AppRightPanel = (props) => {
             </button>
             <div className="user-detail-wrapper">
                 <div className="user-detail-content">
-                    <img src="assets/layout/images/dashboard/gene.png" alt="atlantis" className="user-image" />
+                    <img src="../assets/layout/images/dashboard/gene.png" alt="atlantis" className="user-image" />
                     <span className="user-name">Gene Russell</span>
                     <span className="user-number">(406) 555-0120</span>
                 </div>

@@ -1,17 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onChangeValue, onLogin } from "../../store/slice/authSlice/authSlice";
+import { onChangeValue } from "../../store/slice/authSlice/authSlice";
 
 export const useAuthStore = () => {
     const { status, authUser, errorMessages, profileSelected, value } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
-    const startChangeAuth = () => {
-        dispatch(onLogin("Cambiando en auth"));
-    }
-
     const starChangeValue = (data) => {
         dispatch(onChangeValue(data));
-    }
+    };
 
     return {
         /**Propiedades **/
@@ -21,7 +17,6 @@ export const useAuthStore = () => {
         profileSelected,
         value,
         /** Métodos **/
-        startChangeAuth,
         starChangeValue,
     };
 

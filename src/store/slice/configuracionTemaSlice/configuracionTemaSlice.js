@@ -2,36 +2,38 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     allConfig: null,
+    themeColor: 'blue',
     componentTheme: 'blue',
+    menuMode: 'sidebar',
     ripple: true,
-    colorSchema: 'dark'
-}
+    colorScheme: 'dark',
+};
 
 export const configuracionTemaSlice = createSlice({
-    name: "configuracionTemaSlice", initialState,
+    name: "ui", initialState,
     reducers: {
         onChangeAllConfig: (state, { payload }) => {
             state.allConfig = payload;
         },
+        onChangeThemeColor: (state, { payload }) => {
+            state.themeColor = payload;
+        },
         onChangeComponentTheme: (state, { payload }) => {
             state.componentTheme = payload;
+        },
+        onChangeMenuMode: (state, { payload }) => {
+            state.menuMode = payload;
         },
         onChangeRipple: (state, { payload }) => {
             state.ripple = payload;
         },
-        onChangeColorSchema: (state, { payload }) => {
-            state.colorSchema = payload;
+        onChangeScheme: (state, { payload }) => {
+            state.colorScheme = payload;
         },
-        onResetConfiguracionTema: () => {
+        onResetConfTemplate: () => {
             return initialState;
-        }
-    }
+        },
+    },
 })
 
-export const {
-    onChangeAllConfig,
-    onChangeComponentTheme,
-    onChangeRipple,
-    onChangeColorSchema,
-    onResetConfiguracionTema
-} = configuracionTemaSlice.actions;
+export const { onChangeAllConfig, onChangeThemeColor, onChangeComponentTheme, onChangeMenuMode, onChangeRipple, onChangeScheme, onResetConfTemplate, } = configuracionTemaSlice.actions;

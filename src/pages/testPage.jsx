@@ -6,6 +6,16 @@ export const TestPage = () => {
 
 
     return (
-        <div>{`Desde Test: ${value}`}</div>
+        <div>
+            Desde Test
+            {value.map((item) => {
+                return (
+                    <div key={item.id}>
+                        {item.name}
+                    </div>
+                )
+            })
+            }
+        </div>
     )
 }

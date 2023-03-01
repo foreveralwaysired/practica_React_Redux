@@ -2,9 +2,9 @@ import React, { createRef, forwardRef, useCallback, useEffect, useState } from '
 import { NavLink, useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { classNames } from 'primereact/utils';
-import AppInlineMenu from './AppInlineMenu';
 import { Ripple } from 'primereact/ripple';
 import { Badge } from 'primereact/badge';
+import AppInlineMenu from './appInlineMenu';
 
 const AppSubmenu = forwardRef((props, ref) => {
     const [activeIndex, setActiveIndex] = useState(null);

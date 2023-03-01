@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { classNames } from 'primereact/utils';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import AppTopbar from '../../AppTopbar';
-import AppMenu from '../../AppMenu';
-import AppFooter from '../../AppFooter';
-import AppConfig from '../../AppConfig';
-import AppRightMenu from '../../AppRightMenu'
-import AppBreadcrumb from '../../AppBreadcrumb';
+// import AppTopbar from './AppTopbar';
 
+import AppFooter from '../components/appFooter';
+import AppConfig from '../components/appConfig';
+import AppRightPanel from '../components/appRightPanel';
+import AppBreadcrumb from '../components/appBreadcrumb';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
@@ -16,15 +15,30 @@ import { Tooltip } from 'primereact/tooltip';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
-import { EvolucionesPage } from '../../pages/evolucionesPage';
+import { useConfiguracionTemaStore } from '../../hooks/configuracionTemaHooks/useConfiguracionTemaStore';
+import AppMenu from '../components/appMenu';
+import AppTopbar from '../components/appTopbar';
+import { menuRoutes } from '../../routes/menuRoutes';
 
 
-export const AdminLayout = (props) => {
+export const AdminLayout = ({ children }) => {
+
+    const {
+        menuMode,
+        setMenuMode,
+        colorScheme,
+        onColorSchemeChange,
+        themeColor,
+        onMenuThemeChange,
+        componentTheme,
+        onComponentThemeChange,
+        ripple,
+        setRipple,
+    } = useConfiguracionTemaStore();
+
     const [rightMenuActive, setRightMenuActive] = useState(false);
     const [configActive, setConfigActive] = useState(false);
-    const [menuMode, setMenuMode] = useState('sidebar');
     const [overlayMenuActive, setOverlayMenuActive] = useState(false);
-    const [ripple, setRipple] = useState(true);
     const [sidebarStatic, setSidebarStatic] = useState(false);
     const [staticMenuDesktopInactive, setStaticMenuDesktopInactive] = useState(false);
     const [staticMenuMobileActive, setStaticMenuMobileActive] = useState(false);
@@ -37,140 +51,17 @@ export const AdminLayout = (props) => {
     const [resetActiveIndex, setResetActiveIndex] = useState(null);
     const copyTooltipRef = useRef();
     const location = useLocation();
+    const [menu, setMenu] = useState('');
 
     PrimeReact.ripple = true;
 
-    const menu = [
-        {
-            label: 'Favorites',
-            icon: 'pi pi-home',
-            items: [{ label: 'Dashboard', icon: 'pi pi-home', to: '/' }]
-        },
-        {
-            label: 'UI Kit',
-            icon: 'pi pi-star',
-            items: [
-                { label: 'Form Layout', icon: 'pi pi-id-card', to: '/formlayout' },
-                { label: 'Input', icon: 'pi pi-check-square', to: '/input' },
-                { label: 'Float Label', icon: 'pi pi-bookmark', to: '/floatlabel' },
-                { label: 'Invalid State', icon: 'pi pi-exclamation-circle', to: '/invalidstate' },
-                { label: 'Button', icon: 'pi pi-mobile', to: '/button', className: 'rotated-icon' },
-                { label: 'Table', icon: 'pi pi-table', to: '/table' },
-                { label: 'List', icon: 'pi pi-list', to: '/list' },
-                { label: 'Tree', icon: 'pi pi-share-alt', to: '/tree' },
-                { label: 'Panel', icon: 'pi pi-tablet', to: '/panel' },
-                { label: 'Overlay', icon: 'pi pi-clone', to: '/overlay' },
-                { label: 'Media', icon: 'pi pi-image', to: '/media' },
-                { label: 'Menu', icon: 'pi pi-bars', to: '/menu' },
-                { label: 'Message', icon: 'pi pi-comment', to: '/message' },
-                { label: 'File', icon: 'pi pi-file', to: '/file' },
-                { label: 'Chart', icon: 'pi pi-chart-bar', to: '/chart' },
-                { label: 'Misc', icon: 'pi pi-circle', to: '/misc' }
-            ]
-        },
-        {
-            label: 'PrimeBlocks',
-            icon: 'pi pi-prime',
-            items: [
-                { label: 'Free Blocks', icon: 'pi pi-eye', to: '/blocks', badge: 'NEW' },
-                { label: 'All Blocks', icon: 'pi pi-globe', url: 'https://www.primefaces.org/primeblocks-react', target: '_blank' }
-            ]
-        },
-        {
-            label: 'Utilities',
-            icon: 'pi pi-compass',
-            items: [
-                { label: 'Icons', icon: 'pi pi-prime', to: '/icons' },
-                { label: 'PrimeFlex', icon: 'pi pi-desktop', url: 'https://www.primefaces.org/primeflex', target: '_blank' }
-            ]
-        },
-        {
-            label: 'Pages',
-            icon: 'pi pi-briefcase',
-            items: [
-                { label: 'Crud', icon: 'pi pi-pencil', to: '/crud' },
-                { label: 'Calendar', icon: 'pi pi-calendar-plus', to: '/calendar' },
-                { label: 'Timeline', icon: 'pi pi-calendar', to: '/timeline' },
-                { label: 'Landing', icon: 'pi pi-globe', url: 'assets/pages/landing.html', target: '_blank' },
-                { label: 'Login', icon: 'pi pi-sign-in', to: '/login' },
-                { label: 'Invoice', icon: 'pi pi-dollar', to: '/invoice' },
-                { label: 'Help', icon: 'pi pi-question-circle', to: '/help' },
-                { label: 'Error', icon: 'pi pi-times-circle', to: '/error' },
-                { label: 'Not Found', icon: 'pi pi-exclamation-circle', to: '/notfound' },
-                { label: 'Access Denied', icon: 'pi pi-lock', to: '/access' },
-                { label: 'Empty Page', icon: 'pi pi-circle', to: '/empty' }
-            ]
-        },
-        {
-            label: 'Hierarchy',
-            icon: 'pi pi-align-left',
-            items: [
-                {
-                    label: 'Submenu 1',
-                    icon: 'pi pi-align-left',
-                    items: [
-                        {
-                            label: 'Submenu 1.1',
-                            icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 1.1.1', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 1.1.2', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 1.1.3', icon: 'pi pi-align-left' }
-                            ]
-                        },
-                        {
-                            label: 'Submenu 1.2',
-                            icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 1.2.1', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 1.2.2', icon: 'pi pi-align-left' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    label: 'Submenu 2',
-                    icon: 'pi pi-align-left',
-                    items: [
-                        {
-                            label: 'Submenu 2.1',
-                            icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 2.1.1', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 2.1.2', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 2.1.3', icon: 'pi pi-align-left' }
-                            ]
-                        },
-                        {
-                            label: 'Submenu 2.2',
-                            icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 2.2.1', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 2.2.2', icon: 'pi pi-align-left' }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            label: 'Start',
-            icon: 'pi pi-download',
-            items: [
-                { label: 'Documentation', icon: 'pi pi-question', to: '/documentation' },
-                {
-                    label: 'Buy Now',
-                    icon: 'pi pi-shopping-cart',
-                    command: () => {
-                        window.location = 'https://www.primefaces.org/store';
-                    }
-                }
-            ]
-        }
-    ];
+    useEffect(() => {
+        setMenu(menuRoutes());
+    }, []);
 
     const routes = [
         { parent: 'Dashboard', label: 'Sales Dashboard' },
+        { parent: 'Catalogos', label: 'user' },
         { parent: 'UI Kit', label: 'Form Layout' },
         { parent: 'UI Kit', label: 'Input' },
         { parent: 'UI Kit', label: 'Float Label' },
@@ -431,7 +322,7 @@ export const AdminLayout = (props) => {
                 <AppTopbar
                     items={menu}
                     menuMode={menuMode}
-                    colorScheme={props.colorScheme}
+                    colorScheme={colorScheme}
                     menuActive={menuActive}
                     topbarMenuActive={topbarMenuActive}
                     activeInlineProfile={activeInlineProfile}
@@ -454,7 +345,7 @@ export const AdminLayout = (props) => {
                     onToggleMenu={onToggleMenu}
                     onMenuClick={onMenuClick}
                     menuMode={menuMode}
-                    colorScheme={props.colorScheme}
+                    colorScheme={colorScheme}
                     menuActive={menuActive}
                     sidebarActive={sidebarActive}
                     sidebarStatic={sidebarStatic}
@@ -469,15 +360,12 @@ export const AdminLayout = (props) => {
                 <AppBreadcrumb routes={routes} onMenuButtonClick={onMenuButtonClick} menuMode={menuMode} onRightMenuButtonClick={onRightMenuButtonClick} onInputClick={onInputClick} searchActive={searchActive} breadcrumbClick={breadcrumbClick} />
 
                 <div className="layout-main-content">
-                    <Routes>
-                        <Route path="/" exact="true" element={<EvolucionesPage />} />
-                    </Routes>
+                    {children}
                 </div>
 
-                <AppFooter colorScheme={props.colorScheme} />
+                <AppFooter colorScheme={colorScheme} />
             </div>
-
-            <AppRightMenu rightMenuActive={rightMenuActive} onRightMenuClick={onRightMenuClick} onRightMenuActiveChange={onRightMenuActiveChange} />
+            <AppRightPanel rightMenuActive={rightMenuActive} onRightMenuClick={onRightMenuClick} onRightMenuActiveChange={onRightMenuActiveChange} />
 
             <AppConfig
                 configActive={configActive}
@@ -485,13 +373,13 @@ export const AdminLayout = (props) => {
                 onConfigClick={onConfigClick}
                 menuMode={menuMode}
                 changeMenuMode={onMenuModeChange}
-                colorScheme={props.colorScheme}
-                changeColorScheme={props.onColorSchemeChange}
-                theme={props.theme}
-                changeTheme={props.onMenuThemeChange}
-                componentTheme={props.componentTheme}
-                changeComponentTheme={props.onComponentThemeChange}
-                ripple={ripple}
+                colorScheme={colorScheme}
+                changeColorScheme={onColorSchemeChange}
+                theme={themeColor}
+                changeTheme={onMenuThemeChange}
+                componentTheme={componentTheme}
+                changeComponentTheme={onComponentThemeChange}
+                ripple={ripple}//Ripple Effect
                 onRippleChange={onRippleChange}
             />
         </div>

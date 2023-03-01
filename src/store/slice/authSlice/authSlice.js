@@ -5,8 +5,8 @@ const initialState = {
     errorMessages: null,
     profileSelected: null,
     configTemplate: null,
-    value: null,
     status: "authenticated",
+    value: null
 };
 
 export const authSlice = createSlice({
@@ -61,5 +61,5 @@ export const {
     setConfigTemplate,
     clearValues,
     clearConfigTemplate,
-    onChangeValue
+    onChangeValue,
 } = authSlice.actions;
