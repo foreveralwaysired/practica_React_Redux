@@ -5,12 +5,16 @@ const initialState = {
     errorMessages: null,
     profileSelected: null,
     configTemplate: null,
+    value: null,
     status: "authenticated",
 };
 
 export const authSlice = createSlice({
     name: "auth", initialState,
     reducers: {
+        onChangeValue: (state, { payload }) => {
+            state.value = payload;
+        },
         onChecking: state => {
             state.status = "checking";
             state.authUser = null;
@@ -48,4 +52,14 @@ export const authSlice = createSlice({
     },
 })
 
-export const { onChecking, onLogin, onLogout, clearErrorMessages, setProfileSelected, setConfigTemplate, clearValues, clearConfigTemplate } = authSlice.actions;
+export const {
+    onChecking,
+    onLogin,
+    onLogout,
+    clearErrorMessages,
+    setProfileSelected,
+    setConfigTemplate,
+    clearValues,
+    clearConfigTemplate,
+    onChangeValue
+} = authSlice.actions;

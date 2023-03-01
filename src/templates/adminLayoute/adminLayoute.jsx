@@ -16,6 +16,7 @@ import { Tooltip } from 'primereact/tooltip';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
+import { EvolucionesPage } from '../../pages/evolucionesPage';
 
 
 export const AdminLayout = (props) => {
@@ -468,6 +469,9 @@ export const AdminLayout = (props) => {
                 <AppBreadcrumb routes={routes} onMenuButtonClick={onMenuButtonClick} menuMode={menuMode} onRightMenuButtonClick={onRightMenuButtonClick} onInputClick={onInputClick} searchActive={searchActive} breadcrumbClick={breadcrumbClick} />
 
                 <div className="layout-main-content">
+                    <Routes>
+                        <Route path="/" exact="true" element={<EvolucionesPage />} />
+                    </Routes>
                 </div>
 
                 <AppFooter colorScheme={props.colorScheme} />
