@@ -1,37 +1,44 @@
 import { Button } from 'primereact/button'
-import { Dropdown } from 'primereact/dropdown';
 import React, { useState } from 'react'
 import { useAuthStore } from '../../hooks/authHooks/useAuthStore';
 import { InputText } from "primereact/inputtext";
+import { FormProvider, useForm } from 'react-hook-form';
+import { FormInputText } from '../ui/formInputText';
+import { usePokeApiStore } from '../../hooks/evoluciones/usePokeApiStore';
+
 
 export const EvolucionesForm = (props) => {
 
     const { starChangeValue } = useAuthStore();
+    const { pokemons, getPokemon } = usePokeApiStore();
 
     const [ciudades, setCiudades] = useState();
     const [nombre, setNombre] = useState();
     const [id, setId] = useState();
 
+    const methods = useForm();
+
     const enviar = (datos) => {
-
+        console.log("datos", datos);
+        getPokemon(datos.id);
+        // props.agregarOtro(datos);
+        // starChangeValue(datos);
     }
-
+    
     return (
-        <div>
-            <div className='grid'>
+        <FormProvider {...methods}>
+            <form className='grid' onSubmit={methods.handleSubmit(enviar)}>
                 <div className='col-12'>
                     {/* <NuevaEvolucionForm /> */}
-                    <InputText value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                    <FormInputText name="id" label="id del pokemon"/>
                 </div>
                 <div className='col-12'>
-                    <InputText value={id} onChange={(e) => setId(e.target.value)} />
+                    <FormInputText name="nombre" label="nombre del pokemon"/>
                 </div>
                 <div className='col-12'>
-                    <Button
-                        onClick={() => enviar({ nombre, id })}
-                    />
+                    <Button label='Guardar'/>
                 </div>
-            </div>
-        </div>
+            </form>
+        </FormProvider>
     )
 }
