@@ -1,6 +1,6 @@
 import {clientAxios} from "../config/axiosConfig";
 
-export const getPokemons = async () => {
-    const response = await clientAxios.get("/pokemon");
+export const getPokemons = async (id) => {
+    const response = await clientAxios.get(`/pokemon/${id}`);
     return response.data;
 }
