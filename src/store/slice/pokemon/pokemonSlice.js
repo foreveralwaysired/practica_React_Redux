@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-   habilidades: []
+    habilidades: [],
+    nombre: "",
 };
 
 export const pokemonSlice = createSlice({
@@ -9,8 +10,11 @@ export const pokemonSlice = createSlice({
     reducers: {
         onChangeHabilidades: (state, { payload }) => {
             state.habilidades = payload;
-        }
+        },
+        onChangeName: (state, { payload }) => {
+            state.nombre = payload;
+        },
     },
 })
 
-export const { onChangeHabilidades,} = pokemonSlice.actions;
+export const { onChangeHabilidades, onChangeName } = pokemonSlice.actions;

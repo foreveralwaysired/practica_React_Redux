@@ -8,5 +8,14 @@ export const usePokeApiStore = () => {
             setPokemons(response.data);
         });
     }
-    return { pokemons, getPokemon };
+
+    
+
+    return {
+        /**Propiedades **/
+        pokemons,
+
+        /**Metodos **/
+        getPokemon
+    };
 }
