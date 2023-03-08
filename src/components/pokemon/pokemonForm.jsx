@@ -10,14 +10,11 @@ export const PokemonForm = () => {
 
     const onSubmit = (data) => {
         // console.log("Entrando");
-        ObtenerPokemonId(data.id);
+        ObtenerPokemonId(data.id, data.nombre);
+        console.log(data);
     }
 
-    useEffect(() => {
-        if (nombre !== "") {
-            methods.setValue("nombre", "Cambio el reducer");
-        }
-    }, [nombre])
+    
 
     return (
         <FormProvider {...methods}>

@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onChangeName } from "../../store/slice/pokemon/pokemonSlice";
+import { onChangeId, onChangeName } from "../../store/slice/pokemon/pokemonSlice";
 
 export const usePokemonStore = () => {
     const { nombre } = useSelector((state) => state.pokemon);
     const dispatch = useDispatch();
 
-    const ObtenerPokemonId = (id) => {
-        if (id === "1") {
-            dispatch(onChangeName("Bulbasaur"));
-        }
+    const ObtenerPokemonId = (id,nombre) => {
+        dispatch(onChangeId(id));
+        dispatch(onChangeName(nombre));
     };
 
     return {
